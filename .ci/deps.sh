@@ -66,3 +66,6 @@ download_extract "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VER
 ./bootstrap.sh --with-libraries=context,container,system,headers
 ./b2 -j "$(nproc)" install --prefix=/usr/local
 popd
+
+# fake xbyak for non-amd64 (workaround a CMakeLists bug in yuzu)
+echo '!<arch>' > /usr/local/lib/libxbyak.a
