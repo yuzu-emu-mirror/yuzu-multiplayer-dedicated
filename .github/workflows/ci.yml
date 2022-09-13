@@ -1,0 +1,34 @@
+name: 'Yuzu Rooms Docker Image CI'
+
+on:
+  push:
+    branches: [ "*" ]
+    tags: [ "*" ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+    inputs: {}
+  schedule:
+    - cron: '0 7 * * 0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        if: (github.ref == 'refs/heads/master') && (github.repository == 'yuzu-emu/yuzu-multiplayer-dedicated')
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build Image
+        uses: docker/build-push-action@v2
+        with:
+          platforms: linux/amd64,linux/arm64
+          push: ${{ (github.ref == 'refs/heads/master') && (github.repository == 'yuzu-emu/yuzu-multiplayer-dedicated') }}
+          tags: yuzuemu/yuzu-multiplayer-dedicated:latest
