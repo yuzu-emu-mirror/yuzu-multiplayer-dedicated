@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
-FMT_VERSION="8.1.1"
+FMT_VERSION="9.1.0"
 JSON_VERSION="3.11.2"
-ZLIB_VERSION="1.2.12"
+ZLIB_VERSION="1.2.13"
 ZSTD_VERSION="1.5.2"
 LZ4_VERSION="1.9.4"
 BOOST_VERSION="1.80.0"
@@ -28,7 +28,7 @@ info() {
 }
 
 info "fmt ${FMT_VERSION}"
-download_extract "https://github.com/fmtlib/fmt/releases/download/${FMT_VERSION}/fmt-${FMT_VERSION}.zip" "fmt-${FMT_VERSION}" 23778bad8edba12d76e4075da06db591f3b0e3c6c04928ced4a7282ca3400e5d
+download_extract "https://github.com/fmtlib/fmt/releases/download/${FMT_VERSION}/fmt-${FMT_VERSION}.zip" "fmt-${FMT_VERSION}" cceb4cb9366e18a5742128cb3524ce5f50e88b476f1e54737a47ffdf4df4c996
 cmake_install -DFMT_DOC=OFF -DFMT_TEST=OFF
 popd
 
@@ -38,7 +38,7 @@ cmake_install -DJSON_BuildTests=OFF
 popd
 
 info "zlib ${ZLIB_VERSION}"
-download_extract "https://github.com/madler/zlib/archive/refs/tags/v${ZLIB_VERSION}.tar.gz" "zlib-${ZLIB_VERSION}" d8688496ea40fb61787500e863cc63c9afcbc524468cedeb478068924eb54932
+download_extract "https://github.com/madler/zlib/releases/download/v${ZLIB_VERSION}/zlib-${ZLIB_VERSION}.tar.xz" "zlib-${ZLIB_VERSION}" d14c38e313afc35a9a8760dadf26042f51ea0f5d154b0630a31da0540107fb98
 cmake_install -DCMAKE_POLICY_DEFAULT_CMP0069=NEW
 # delete shared libraies as we can't use them in the final image
 rm -v /usr/local/lib/libz.so*
