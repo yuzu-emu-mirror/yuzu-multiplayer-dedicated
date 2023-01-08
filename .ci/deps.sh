@@ -5,7 +5,7 @@ JSON_VERSION="3.11.2"
 ZLIB_VERSION="1.2.13"
 ZSTD_VERSION="1.5.2"
 LZ4_VERSION="1.9.4"
-BOOST_VERSION="1.80.0"
+BOOST_VERSION="1.81.0"
 
 cmake_install() {
     cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON "$@"
@@ -60,7 +60,7 @@ EOF
 popd
 
 info "boost ${BOOST_VERSION}"
-download_extract "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION//\./_}.tar.gz" "boost_${BOOST_VERSION//\./_}" 4b2136f98bdd1f5857f1c3dea9ac2018effe65286cf251534b6ae20cc45e1847
+download_extract "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION//\./_}.tar.gz" "boost_${BOOST_VERSION//\./_}" 205666dea9f6a7cfed87c7a6dfbeb52a2c1b9de55712c9c1a87735d7181452b6
 # Boost use its own ad-hoc build system
 # we only enable what yuzu needs
 ./bootstrap.sh --with-libraries=context,container,system,headers

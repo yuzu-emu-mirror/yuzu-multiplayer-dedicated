@@ -2,8 +2,10 @@
 FROM debian:bullseye AS build
 ENV DEBIAN_FRONTEND=noninteractive
 ARG USE_CCACHE
-RUN apt-get update && apt-get -y full-upgrade && \
-    apt-get install -y build-essential wget git ccache cmake ninja-build libssl-dev pkg-config libarchive-tools
+RUN echo "deb http://deb.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list && \
+    apt-get update && apt-get -y full-upgrade && \
+    apt-get install -y build-essential wget git ccache ninja-build libssl-dev pkg-config libarchive-tools \
+    cmake/bullseye-backports cmake-data/bullseye-backports 
 
 COPY . /root/build-files
 
