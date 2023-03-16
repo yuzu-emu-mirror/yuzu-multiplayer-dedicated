@@ -14,7 +14,7 @@ sudo docker run -d \
   --max_members 4 \
   --token "YUZU ACCOUNT TOKEN" \
   --enable-yuzu-mods \
-  --web-api-url https://api.yuzu-emu.org/
+  --web-api-url https://api.yuzu-emu.org
 ```
 
 **Please note, the token format has changed as of 11/1/2019.**
