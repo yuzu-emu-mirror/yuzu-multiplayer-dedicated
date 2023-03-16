@@ -3,7 +3,7 @@
 FMT_VERSION="9.1.0"
 JSON_VERSION="3.11.2"
 ZLIB_VERSION="1.2.13"
-ZSTD_VERSION="1.5.2"
+ZSTD_VERSION="1.5.4"
 LZ4_VERSION="1.9.4"
 BOOST_VERSION="1.81.0"
 
@@ -45,7 +45,7 @@ rm -v /usr/local/lib/libz.so*
 popd
 
 info "zstd ${ZSTD_VERSION}"
-download_extract "https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zstd-${ZSTD_VERSION}.tar.gz" "zstd-${ZSTD_VERSION}"/build/cmake 7c42d56fac126929a6a85dbc73ff1db2411d04f104fae9bdea51305663a83fd0
+download_extract "https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zstd-${ZSTD_VERSION}.tar.gz" "zstd-${ZSTD_VERSION}"/build/cmake 0f470992aedad543126d06efab344dc5f3e171893810455787d38347343a4424
 cmake_install -DZSTD_BUILD_PROGRAMS=OFF -DBUILD_TESTING=OFF -GNinja -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=OFF
 popd
 
