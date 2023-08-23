@@ -1,4 +1,4 @@
-From c379fce1746b73485ec5053c56aed670f652f4e5 Mon Sep 17 00:00:00 2001
+From 432376920da73e5bb1dc3462c9e92c88607f7d75 Mon Sep 17 00:00:00 2001
 From: liushuyu <liushuyu011@gmail.com>
 Date: Mon, 15 Aug 2022 23:32:31 -0600
 Subject: [PATCH] build: bypass extra dependency checks
@@ -10,10 +10,10 @@ Subject: [PATCH] build: bypass extra dependency checks
  3 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/externals/CMakeLists.txt b/externals/CMakeLists.txt
-index 7f0a6d069..e9c583e22 100644
+index 1f7cd598e..649b23ae9 100644
 --- a/externals/CMakeLists.txt
 +++ b/externals/CMakeLists.txt
-@@ -131,7 +131,7 @@ endif()
+@@ -128,7 +128,7 @@ endif()
  
  # FFMpeg
  if (YUZU_USE_BUNDLED_FFMPEG)
@@ -23,27 +23,27 @@ index 7f0a6d069..e9c583e22 100644
      set(FFmpeg_LDFLAGS "${FFmpeg_LDFLAGS}" PARENT_SCOPE)
      set(FFmpeg_LIBRARIES "${FFmpeg_LIBRARIES}" PARENT_SCOPE)
 diff --git a/src/video_core/CMakeLists.txt b/src/video_core/CMakeLists.txt
-index d7f7d336c..8bd187523 100644
+index 9b13ccbab..c4a5c25f6 100644
 --- a/src/video_core/CMakeLists.txt
 +++ b/src/video_core/CMakeLists.txt
-@@ -245,9 +245,9 @@ create_target_directory_groups(video_core)
+@@ -284,9 +284,9 @@ create_target_directory_groups(video_core)
  target_link_libraries(video_core PUBLIC common core)
- target_link_libraries(video_core PUBLIC glad shader_recompiler)
+ target_link_libraries(video_core PUBLIC glad shader_recompiler stb bc_decoder)
  
--if (YUZU_USE_BUNDLED_FFMPEG AND NOT WIN32)
+-if (YUZU_USE_BUNDLED_FFMPEG AND NOT (WIN32 OR ANDROID))
 -    add_dependencies(video_core ffmpeg-build)
 -endif()
-+#if (YUZU_USE_BUNDLED_FFMPEG AND NOT WIN32)
++#if (YUZU_USE_BUNDLED_FFMPEG AND NOT (WIN32 OR ANDROID))
 +#    add_dependencies(video_core ffmpeg-build)
 +#endif()
  
  target_include_directories(video_core PRIVATE ${FFmpeg_INCLUDE_DIR})
  target_link_libraries(video_core PRIVATE ${FFmpeg_LIBRARIES})
 diff --git a/src/video_core/host_shaders/CMakeLists.txt b/src/video_core/host_shaders/CMakeLists.txt
-index 2149ab93e..96889f00b 100644
+index c4d459077..6354674db 100644
 --- a/src/video_core/host_shaders/CMakeLists.txt
 +++ b/src/video_core/host_shaders/CMakeLists.txt
-@@ -44,9 +44,9 @@ set(SHADER_FILES
+@@ -65,9 +65,9 @@ set(SHADER_FILES
  )
  
  find_program(GLSLANGVALIDATOR "glslangValidator")
@@ -57,5 +57,5 @@ index 2149ab93e..96889f00b 100644
  set(GLSL_FLAGS "")
  set(QUIET_FLAG "--quiet")
 -- 
-2.38.1
+2.41.0
 
