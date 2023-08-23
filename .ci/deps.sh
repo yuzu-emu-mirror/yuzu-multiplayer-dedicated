@@ -1,11 +1,11 @@
 #!/bin/bash -e
 
-FMT_VERSION="9.1.0"
+FMT_VERSION="10.1.0"
 JSON_VERSION="3.11.2"
-ZLIB_VERSION="1.2.13"
-ZSTD_VERSION="1.5.4"
+ZLIB_VERSION="1.3"
+ZSTD_VERSION="1.5.5"
 LZ4_VERSION="1.9.4"
-BOOST_VERSION="1.81.0"
+BOOST_VERSION="1.83.0"
 
 cmake_install() {
     cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON "$@"
@@ -28,7 +28,7 @@ info() {
 }
 
 info "fmt ${FMT_VERSION}"
-download_extract "https://github.com/fmtlib/fmt/releases/download/${FMT_VERSION}/fmt-${FMT_VERSION}.zip" "fmt-${FMT_VERSION}" cceb4cb9366e18a5742128cb3524ce5f50e88b476f1e54737a47ffdf4df4c996
+download_extract "https://github.com/fmtlib/fmt/releases/download/${FMT_VERSION}/fmt-${FMT_VERSION}.zip" "fmt-${FMT_VERSION}" d725fa83a8b57a3cedf238828fa6b167f963041e8f9f7327649bddc68ae316f4
 cmake_install -DFMT_DOC=OFF -DFMT_TEST=OFF
 popd
 
@@ -38,14 +38,14 @@ cmake_install -DJSON_BuildTests=OFF
 popd
 
 info "zlib ${ZLIB_VERSION}"
-download_extract "https://github.com/madler/zlib/releases/download/v${ZLIB_VERSION}/zlib-${ZLIB_VERSION}.tar.xz" "zlib-${ZLIB_VERSION}" d14c38e313afc35a9a8760dadf26042f51ea0f5d154b0630a31da0540107fb98
+download_extract "https://github.com/madler/zlib/releases/download/v${ZLIB_VERSION}/zlib-${ZLIB_VERSION}.tar.xz" "zlib-${ZLIB_VERSION}" 8a9ba2898e1d0d774eca6ba5b4627a11e5588ba85c8851336eb38de4683050a7
 cmake_install -DCMAKE_POLICY_DEFAULT_CMP0069=NEW
 # delete shared libraies as we can't use them in the final image
 rm -v /usr/local/lib/libz.so*
 popd
 
 info "zstd ${ZSTD_VERSION}"
-download_extract "https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zstd-${ZSTD_VERSION}.tar.gz" "zstd-${ZSTD_VERSION}"/build/cmake 0f470992aedad543126d06efab344dc5f3e171893810455787d38347343a4424
+download_extract "https://github.com/facebook/zstd/releases/download/v${ZSTD_VERSION}/zstd-${ZSTD_VERSION}.tar.gz" "zstd-${ZSTD_VERSION}"/build/cmake 9c4396cc829cfae319a6e2615202e82aad41372073482fce286fac78646d3ee4
 cmake_install -DZSTD_BUILD_PROGRAMS=OFF -DBUILD_TESTING=OFF -GNinja -DZSTD_BUILD_STATIC=ON -DZSTD_BUILD_SHARED=OFF
 popd
 
@@ -60,7 +60,7 @@ EOF
 popd
 
 info "boost ${BOOST_VERSION}"
-download_extract "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION//\./_}.tar.gz" "boost_${BOOST_VERSION//\./_}" 205666dea9f6a7cfed87c7a6dfbeb52a2c1b9de55712c9c1a87735d7181452b6
+download_extract "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION//\./_}.tar.gz" "boost_${BOOST_VERSION//\./_}" c0685b68dd44cc46574cce86c4e17c0f611b15e195be9848dfd0769a0a207628
 # Boost use its own ad-hoc build system
 # we only enable what yuzu needs
 ./bootstrap.sh --with-libraries=context,container,system,headers
