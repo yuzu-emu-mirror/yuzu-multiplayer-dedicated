@@ -54,7 +54,8 @@ RUN chisel cut --release /opt/chisel-releases --root /rootfs \
     libc6_libs \
     libssl3_libs \
     libstdc++6_libs \
-    openssl_config
+    openssl_config \
+    openssl_data
 
 FROM image-prep AS final
 COPY --from=sliced-deps /rootfs /
