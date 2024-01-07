@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.3
-ARG UBUNTU_RELEASE=23.04
+ARG UBUNTU_RELEASE=23.10
 ARG USER=ubuntu UID=101 GROUP=ubuntu GID=101
 
 ### BOILERPLATE BEGIN ###
