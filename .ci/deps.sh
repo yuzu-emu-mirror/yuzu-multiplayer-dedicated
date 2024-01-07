@@ -1,11 +1,11 @@
 #!/bin/bash -e
 
-FMT_VERSION="10.1.0"
-JSON_VERSION="3.11.2"
+FMT_VERSION="10.2.1"
+JSON_VERSION="3.11.3"
 ZLIB_VERSION="1.3"
 ZSTD_VERSION="1.5.5"
 LZ4_VERSION="1.9.4"
-BOOST_VERSION="1.83.0"
+BOOST_VERSION="1.84.0"
 
 cmake_install() {
     cmake . -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON "$@"
@@ -28,12 +28,12 @@ info() {
 }
 
 info "fmt ${FMT_VERSION}"
-download_extract "https://github.com/fmtlib/fmt/releases/download/${FMT_VERSION}/fmt-${FMT_VERSION}.zip" "fmt-${FMT_VERSION}" d725fa83a8b57a3cedf238828fa6b167f963041e8f9f7327649bddc68ae316f4
+download_extract "https://github.com/fmtlib/fmt/releases/download/${FMT_VERSION}/fmt-${FMT_VERSION}.zip" "fmt-${FMT_VERSION}" 312151a2d13c8327f5c9c586ac6cf7cddc1658e8f53edae0ec56509c8fa516c9
 cmake_install -DFMT_DOC=OFF -DFMT_TEST=OFF
 popd
 
 info "nlohmann_json ${JSON_VERSION}"
-download_extract "https://github.com/nlohmann/json/releases/download/v${JSON_VERSION}/json.tar.xz" json 8c4b26bf4b422252e13f332bc5e388ec0ab5c3443d24399acb675e68278d341f
+download_extract "https://github.com/nlohmann/json/releases/download/v${JSON_VERSION}/json.tar.xz" json d6c65aca6b1ed68e7a182f4757257b107ae403032760ed6ef121c9d55e81757d
 cmake_install -DJSON_BuildTests=OFF
 popd
 
@@ -60,7 +60,7 @@ EOF
 popd
 
 info "boost ${BOOST_VERSION}"
-download_extract "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION//\./_}.tar.gz" "boost_${BOOST_VERSION//\./_}" c0685b68dd44cc46574cce86c4e17c0f611b15e195be9848dfd0769a0a207628
+download_extract "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION//\./_}.tar.gz" "boost_${BOOST_VERSION//\./_}" a5800f405508f5df8114558ca9855d2640a2de8f0445f051fa1c7c3383045724
 # Boost use its own ad-hoc build system
 # we only enable what yuzu needs
 ./bootstrap.sh --with-libraries=context,container,system,headers
