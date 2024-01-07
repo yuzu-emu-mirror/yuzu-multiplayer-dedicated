@@ -60,7 +60,7 @@ EOF
 popd
 
 info "boost ${BOOST_VERSION}"
-download_extract "https://github.com/boostorg/boost/releases/download/boost-1.84.0/boost-1.84.0.tar.xz" "boost_${BOOST_VERSION}" 2e64e5d79a738d0fa6fb546c6e5c2bd28f88d268a2a080546f74e5ff98f29d0e
+download_extract "https://github.com/boostorg/boost/releases/download/boost-1.84.0/boost-1.84.0.tar.xz" "boost-${BOOST_VERSION}" 2e64e5d79a738d0fa6fb546c6e5c2bd28f88d268a2a080546f74e5ff98f29d0e
 # Boost use its own ad-hoc build system
 # we only enable what yuzu needs
 ./bootstrap.sh --with-libraries=context,container,system,headers
